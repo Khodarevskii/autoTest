@@ -1,0 +1,26 @@
+{
+  "name": "autotest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "form.spec.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@faker-js/faker": "^10.0.0",
+    "@types/faker": "^6.6.8",
+    "babel-core": "^4.7.16",
+    "babel-jest": "^30.1.2",
+    "babel-preset-env": "^0.0.0",
+    "faker": "^5.5.3",
+    "jest": "^30.1.3",
+    "jest-puppeteer": "^11.0.0",
+    "puppeteer": "^24.22.0"
+  }
+}
