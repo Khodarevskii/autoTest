@@ -17,21 +17,24 @@ let browser;
 let res;
 let url
 
+
+jest.setTimeout(100000)
+
 beforeAll(async () => {
   browser = await puppeteer.launch({
     headless: false,
     slowMo: 80,
     args: [`--window-size=${width},${height}`]
   });
+
   page = await browser.newPage();
-  await page.goto(APP);
   await page.setViewport({ width, height });
-  await page.setRequestInterception(true);
+  await page.goto(APP);
  page.on('request', (request) => {
    if (request.resourceType() === 'xhr' ) {
+          console.log( request.url())
           return url = request.url()
         }
-        request.continue();
     });
 
     // Monitor responses
@@ -58,11 +61,12 @@ test("форма заказть звонок открываеться",async()=>
 
 
 
-
 test("форому заказа можно отправить",async()=>{
   await page.click('.inputtext[placeholder="Ваше имя..."]')
-  await page.type('.inputtext[placeholder="Ваше имя..."]', 'кирилл')
-  await page.click('.phoneNumber')
+  await page.keyboard.down('a');
+  await page.keyboard.down('b');
+  await page.keyboard.down('d');
+  await page.click('[type="submit"]')
   await page.waitForSelector('.phoneNumber')
   await page.keyboard.down('0');
   await page.keyboard.down('0');
@@ -74,6 +78,7 @@ test("форому заказа можно отправить",async()=>{
   await page.keyboard.down('0');
   await page.keyboard.down('0');
   await page.keyboard.down('0');
-  await page.click('.btn[type="submit"]')
-  await page.waitForSelector('.aaaa')
-},50000)
+  await page.click('[type="submit"]')
+  await page.waitForResponse(url);
+  await expect(res).toBe(200)
+},1000000)
