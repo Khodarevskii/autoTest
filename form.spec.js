@@ -22,8 +22,6 @@ jest.setTimeout(100000)
 
 beforeAll(async () => {
   browser = await puppeteer.launch({
-    headless: false,
-    slowMo: 80,
     args: [`--window-size=${width},${height}`]
   });
 
@@ -63,9 +61,7 @@ test("форма заказть звонок открываеться",async()=>
 
 test("форому заказа можно отправить",async()=>{
   await page.click('.inputtext[placeholder="Ваше имя..."]')
-  await page.keyboard.down('a');
-  await page.keyboard.down('b');
-  await page.keyboard.down('d');
+  await page.type('.inputtext[placeholder="Ваше имя..."]',lead.name)
   await page.click('[type="submit"]')
   await page.waitForSelector('.phoneNumber')
   await page.keyboard.down('0');
